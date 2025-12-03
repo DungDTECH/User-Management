@@ -38,7 +38,18 @@ Tất cả endpoints nằm dưới base path `/users`.
      - `userId` (string) — bắt buộc: mã do bạn cung cấp, ví dụ `DX01`.
      - `email` (string) — tuỳ chọn nhưng nếu gửi phải là email hợp lệ.
      - `name` (string) — tuỳ chọn.
-     - `role` (string) — bắt buộc (ví dụ `staff`, `admin`).
+     - `role` (string) — tùy chọn (ví dụ `staff`, `admin`).
+
+    Example:
+```json
+{
+  "userId": "DX01",
+  "email": "alice@example.com",
+  "name": "Alice",
+  "role": "staff"
+}
+```
+    
    - Response:
      - 201 Created: trả về object user vừa tạo, ví dụ:
 
@@ -111,60 +122,4 @@ Tất cả endpoints nằm dưới base path `/users`.
      - 204 No Content — xóa thành công
      - 404 Not Found — nếu user không tồn tại
 
-## Example requests (PowerShell)
 
-Create user:
-
-```powershell
-$body = @{
-   userId = "DX01"
-   email = "alice@example.com"
-   name = "Alice Nguyen"
-   role = "staff"
-} | ConvertTo-Json
-
-Invoke-RestMethod -Method Post -Uri http://localhost:3000/users -Body $body -ContentType 'application/json'
-```
-
-Get all users:
-
-```powershell
-Invoke-RestMethod -Method Get -Uri http://localhost:3000/users
-```
-
-Get one user:
-
-```powershell
-Invoke-RestMethod -Method Get -Uri http://localhost:3000/users/DX01
-```
-
-Update user:
-
-```powershell
-$patch = @{ name = "Alice Updated" } | ConvertTo-Json
-Invoke-RestMethod -Method Patch -Uri http://localhost:3000/users/DX01 -Body $patch -ContentType 'application/json'
-```
-
-Delete user:
-
-```powershell
-Invoke-RestMethod -Method Delete -Uri http://localhost:3000/users/DX01
-```
-
-## Environment variables
-
-Copy `.env.example` -> `.env` và chỉnh cho phù hợp. Các biến quan trọng:
-
-- `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`, `DB_NAME`
-- `PORT` (mặc định 3000)
-- `NODE_ENV` (development/production)
-
-## Docker / Docker Compose
-
-Build image và chạy bằng docker-compose:
-
-```powershell
-docker-compose up --build
-```
-
-Nếu bạn dùng `docker-compose.example.yml`, copy và sửa theo nhu cầu.
