@@ -17,7 +17,6 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    // ensure provided userId is not already used
     const existingById = await this.userRepository.findOne({
       where: { userId: createUserDto.userId },
     });
