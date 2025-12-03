@@ -2,6 +2,33 @@
 
 Small NestJS service for user management. This repository includes a Dockerfile and a docker-compose example to run the app together with Postgres locally.
 
+
+## 🗄️ Database Auto-Migration
+
+This project uses **TypeORM migrations** that run automatically when you start the application with Docker Compose.
+
+
+### Migration Files
+
+Migrations are located in `src/migrations/`:
+
+- `CreateUsersTable.ts` - Creates the `users` table with all columns
+
+### Database Schema
+
+The `users` table includes:
+
+- `userId` (varchar, primary key)
+- `email` (varchar, unique)
+- `name` (varchar)
+- `role` (varchar)
+- `isActive` (boolean, default: true)
+- `createdAt` (timestamp)
+- `updatedAt` (timestamp)
+
+
+
+
 ## Quickstart (Docker Compose)
 
 1. Copy the example env and docker-compose file and edit values if needed:
@@ -40,7 +67,8 @@ Tất cả endpoints nằm dưới base path `/users`.
      - `name` (string) — tuỳ chọn.
      - `role` (string) — tùy chọn (ví dụ `staff`, `admin`).
 
-    Example:
+   Example:
+
 ```json
 {
   "userId": "DX01",
@@ -49,9 +77,9 @@ Tất cả endpoints nằm dưới base path `/users`.
   "role": "staff"
 }
 ```
-    
-   - Response:
-     - 201 Created: trả về object user vừa tạo, ví dụ:
+
+- Response:
+  - 201 Created: trả về object user vừa tạo, ví dụ:
 
 ```json
 {
@@ -113,7 +141,7 @@ Tất cả endpoints nằm dưới base path `/users`.
 
     - Errors:
        - 404 Not Found — nếu `userId` không tồn tại.
-       - 400 Bad Request — nếu payload không hợp lệ 
+       - 400 Bad Request — nếu payload không hợp lệ
 
 5. Delete user
    - Method: DELETE
@@ -121,5 +149,3 @@ Tất cả endpoints nằm dưới base path `/users`.
    - Response:
      - 204 No Content — xóa thành công
      - 404 Not Found — nếu user không tồn tại
-
-

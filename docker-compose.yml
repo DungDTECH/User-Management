@@ -33,14 +33,12 @@ services:
     ports:
       - "3000:3000"
     environment:
-      # Ensure app connects to the DB service by host name 'db'
       DB_HOST: db
       DB_PORT: 5432
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
       NODE_ENV: development
-    # Use the image's CMD (Dockerfile sets node dist/main.js)
 
 volumes:
   db_data:
