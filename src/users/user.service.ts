@@ -4,8 +4,8 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { Repository, DataSource } from 'typeorm';
+import { User } from '../entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -14,6 +14,7 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private dataSource: DataSource, // ← Inject DataSource để dùng transaction
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -52,5 +53,15 @@ export class UserService {
   async remove(userId: string): Promise<void> {
     const user = await this.findOne(userId);
     await this.userRepository.remove(user);
+  }
+
+  /**
+   * Update User Avatar
+   * Cập nhật avatar filename vào database
+   */
+  async updateAvatar(userId: string, filename: string): Promise<User> {
+    const user = await this.findOne(userId);
+    user.avatar = filename;
+    return await this.userRepository.save(user);
   }
 }

@@ -40,6 +40,17 @@ export class CreateUsersTable implements MigrationInterface {
             default: 'CURRENT_TIMESTAMP',
             onUpdate: 'CURRENT_TIMESTAMP',
           },
+          {
+            name: 'avatar',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'password',
+            type: 'varchar',
+            isNullable: false,
+
+          },
         ],
       }),
       true,
