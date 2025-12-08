@@ -60,3 +60,9 @@ docker-compose.yml
 # Uploads
 /uploads
 uploads/
+
+# Postman files
+*.postman_collection.json
+*.postman_environment.json
+User-Management-API.postman_collection.json
+User-Management-API.postman_environment.json
